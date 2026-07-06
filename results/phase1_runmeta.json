@@ -1,0 +1,71 @@
+{
+  "seed": 0,
+  "batch_size": 16,
+  "budget_seconds": 7200,
+  "min_denominator": 1.0,
+  "models": {
+    "gpt2": {
+      "n_pairs_loaded": 32,
+      "n_pairs_patched": 32,
+      "n_excluded": 0,
+      "ms_per_config_measured": 212.77104828455677,
+      "projected_seconds_full": 3792.43116462394,
+      "head_pass_restricted": true,
+      "head_layers": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "subset_pair_ids": [
+        "p1_days_week",
+        "p1_house_term",
+        "p1_contract_capacity_age",
+        "p1_return_window",
+        "p1_earth_moons",
+        "p1_driving_age"
+      ],
+      "n_effect_rows": 17824
+    },
+    "pythia-160m": {
+      "n_pairs_loaded": 34,
+      "n_pairs_patched": 30,
+      "n_excluded": 4,
+      "ms_per_config_measured": 438.2981110925544,
+      "projected_seconds_full": 7463.340235684016,
+      "head_pass_restricted": true,
+      "head_layers": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "subset_pair_ids": [
+        "p1_warranty_period",
+        "p1_hours_day",
+        "p1_days_week",
+        "p1_contract_capacity_age",
+        "p1_driving_age",
+        "p1_us_states"
+      ],
+      "n_effect_rows": 17028
+    }
+  },
+  "total_wall_seconds": 12352.378240346909
+}

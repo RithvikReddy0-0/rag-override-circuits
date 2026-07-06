@@ -1,0 +1,22 @@
+[project]
+name = "rag-override-circuits"
+version = "0.1.0"
+description = "Mechanistic-interpretability study of context-override circuits in small LMs (CPU-only)"
+requires-python = ">=3.11,<3.12"
+dependencies = [
+    "torch>=2.2,<3.0",
+    "transformer-lens>=3.0,<4.0",
+    "numpy>=1.26,<2.0",
+    "pandas>=2.2,<3.0",
+    "matplotlib>=3.8,<4.0",
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+# attribution.py / ablate.py are Phase 2 modules and should be appended here
+# when they exist (not before — VALIDATION-FIRST).
+py-modules = ["pairs", "measure", "priors", "patch"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
