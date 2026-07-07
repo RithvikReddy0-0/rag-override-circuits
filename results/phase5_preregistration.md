@@ -88,4 +88,4 @@ scale-boundary claim regardless.
   context-loses cases; generation happens only AFTER this file is committed.
 
 ---
-Frozen at commit: (to be appended immediately after the freezing commit)
+Frozen at commit: 539355a564c11694d9103ac979e687e1e9fd9a00
