@@ -1,0 +1,30 @@
+{
+  "seed": 0,
+  "models": {
+    "gpt2": {
+      "n_pairs": 30,
+      "max_recon_err": 4.291534423828125e-06,
+      "top_prior_mlp_layers": [
+        11,
+        10,
+        9
+      ],
+      "control_mlp_layer": 1,
+      "n_component_rows": 780,
+      "n_ablation_rows": 300
+    },
+    "pythia-160m": {
+      "n_pairs": 32,
+      "max_recon_err": 9.834766387939453e-06,
+      "top_prior_mlp_layers": [
+        11,
+        8,
+        7
+      ],
+      "control_mlp_layer": 6,
+      "n_component_rows": 800,
+      "n_ablation_rows": 320
+    }
+  },
+  "total_wall_seconds": 684.0898826122284
+}

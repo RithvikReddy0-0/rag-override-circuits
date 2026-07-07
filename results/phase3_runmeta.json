@@ -1,0 +1,38 @@
+{
+  "seed": 0,
+  "models": {
+    "gpt2": {
+      "n_dla_rows": 240,
+      "n_scan_rows": 4320,
+      "n_joint_rows": 60,
+      "dla_centering_check_max_err": 2.384185791015625e-07,
+      "targets": {
+        "movers": [
+          "L9H9",
+          "L10H2"
+        ],
+        "negatives": [
+          "L10H7"
+        ]
+      }
+    },
+    "pythia-160m": {
+      "n_dla_rows": 320,
+      "n_scan_rows": 4608,
+      "n_joint_rows": 64,
+      "dla_centering_check_max_err": 2.086162567138672e-07,
+      "targets": {
+        "movers": [
+          "L8H10",
+          "L10H7",
+          "L8H2"
+        ],
+        "negatives": [
+          "L9H1",
+          "L9H5"
+        ]
+      }
+    }
+  },
+  "total_wall_seconds": 497.20413637161255
+}

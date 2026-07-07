@@ -1,0 +1,6 @@
+{
+  "model": "gpt2",
+  "n_pairs": 30,
+  "max_abs_reconstruction_error": 4.76837158203125e-06,
+  "mean_abs_reconstruction_error": 1.8308560053507486e-06
+}

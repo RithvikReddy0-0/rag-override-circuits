@@ -1,0 +1,101 @@
+{
+  "model": "pythia-160m",
+  "denom_threshold": 1.0,
+  "n_generated": 8,
+  "n_kept": 5,
+  "probed": [
+    {
+      "pair_id": "p2_ctrl_access_code",
+      "denominator": 4.341209411621094,
+      "ld_conflicting": 1.998666763305664,
+      "ld_supportive": -2.3425426483154297,
+      "kept": true
+    },
+    {
+      "pair_id": "p2_ctrl_gate_number",
+      "denominator": 1.6876239776611328,
+      "ld_conflicting": 0.6959075927734375,
+      "ld_supportive": -0.9917163848876953,
+      "kept": true
+    },
+    {
+      "pair_id": "p2_ctrl_aisle_number",
+      "denominator": 0.1879558563232422,
+      "ld_conflicting": 0.11754035949707031,
+      "ld_supportive": -0.07041549682617188,
+      "kept": false
+    },
+    {
+      "pair_id": "p2_ctrl_platform_number",
+      "denominator": 1.7492942810058594,
+      "ld_conflicting": -0.2572460174560547,
+      "ld_supportive": -2.006540298461914,
+      "kept": true
+    },
+    {
+      "pair_id": "p2_ctrl_exhibit_number",
+      "denominator": 0.4607086181640625,
+      "ld_conflicting": 1.1510753631591797,
+      "ld_supportive": 0.6903667449951172,
+      "kept": false
+    },
+    {
+      "pair_id": "p2_ctrl_channel_number",
+      "denominator": 1.4850044250488281,
+      "ld_conflicting": 1.1692924499511719,
+      "ld_supportive": -0.31571197509765625,
+      "kept": true
+    },
+    {
+      "pair_id": "p2_ctrl_locker_number",
+      "denominator": 2.0641021728515625,
+      "ld_conflicting": 0.08400344848632812,
+      "ld_supportive": -1.9800987243652344,
+      "kept": true
+    },
+    {
+      "pair_id": "p2_ctrl_row_number",
+      "denominator": 0.31200218200683594,
+      "ld_conflicting": -0.08965110778808594,
+      "ld_supportive": -0.4016532897949219,
+      "kept": false
+    }
+  ],
+  "mover_ablation_on_kept": [
+    {
+      "pair_id": "p2_ctrl_access_code",
+      "baseline_ld": 1.998666763305664,
+      "movers_ablated_ld": 0.6262989044189453,
+      "delta_ld": -1.3723678588867188
+    },
+    {
+      "pair_id": "p2_ctrl_gate_number",
+      "baseline_ld": 0.6959075927734375,
+      "movers_ablated_ld": 0.42275238037109375,
+      "delta_ld": -0.27315521240234375
+    },
+    {
+      "pair_id": "p2_ctrl_platform_number",
+      "baseline_ld": -0.2572460174560547,
+      "movers_ablated_ld": -0.3378429412841797,
+      "delta_ld": -0.080596923828125
+    },
+    {
+      "pair_id": "p2_ctrl_channel_number",
+      "baseline_ld": 1.1692924499511719,
+      "movers_ablated_ld": 0.9958782196044922,
+      "delta_ld": -0.1734142303466797
+    },
+    {
+      "pair_id": "p2_ctrl_locker_number",
+      "baseline_ld": 0.08400344848632812,
+      "movers_ablated_ld": -0.06259727478027344,
+      "delta_ld": -0.14660072326660156
+    }
+  ],
+  "mover_heads": [
+    "L8H10",
+    "L10H7",
+    "L8H2"
+  ]
+}

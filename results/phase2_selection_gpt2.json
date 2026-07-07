@@ -1,0 +1,22 @@
+{
+  "model": "gpt2",
+  "note": "no behavioral gate; small n; suggestive only",
+  "results": [
+    {
+      "pair_id": "p1_triangle_sides",
+      "available": false
+    },
+    {
+      "pair_id": "p1_earth_moons",
+      "available": true,
+      "denominator": 1.4744606018066406,
+      "ld_clean": -0.3913688659667969,
+      "ld_corr": -1.8658294677734375,
+      "prior_absdiff": 1.2258682250976562,
+      "mover_recovery": {
+        "L9H9": 0.6770136680801302,
+        "L10H2": 0.24719032083638406
+      }
+    }
+  ]
+}

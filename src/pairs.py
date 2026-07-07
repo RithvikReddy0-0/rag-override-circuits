@@ -598,6 +598,48 @@ PHASE1_CONTROLS: list[Candidate] = [
 ]
 
 
+# Phase 2 replacement copy-controls (Task 3a). The pilot/Phase 1 section-number
+# controls failed for Pythia — it barely tracks "Section N". These use arbitrary
+# identifiers (access code, gate, aisle, ...) the model has no prior belief about
+# but should read straight out of a short sentence. They are kept only if the
+# model COPIES them behaviorally (denominator >= 1.0), verified per model at
+# build time; value_a/value_b are arbitrary (no prior direction implied).
+PHASE2_COPY_CONTROLS: list[Candidate] = [
+    Candidate("p2_ctrl_access_code", "copy_control",
+              "According to the passage, what is the building access code?",
+              "The security memo states that the building access code is {value}.",
+              "4", "7"),
+    Candidate("p2_ctrl_gate_number", "copy_control",
+              "According to the passage, from which gate does the flight depart?",
+              "The itinerary states that the flight departs from gate {value}.",
+              "2", "9"),
+    Candidate("p2_ctrl_aisle_number", "copy_control",
+              "According to the passage, in which aisle is the item located?",
+              "The store directory states that the item is located in aisle {value}.",
+              "4", "7"),
+    Candidate("p2_ctrl_platform_number", "copy_control",
+              "According to the passage, from which platform does the train depart?",
+              "The station notice states that the train departs from platform {value}.",
+              "3", "8"),
+    Candidate("p2_ctrl_exhibit_number", "copy_control",
+              "According to the passage, as which exhibit is the document marked?",
+              "The filing states that the document is marked as Exhibit {value}.",
+              "6", "3"),
+    Candidate("p2_ctrl_channel_number", "copy_control",
+              "According to the passage, on which channel is the program broadcast?",
+              "The listing states that the program is broadcast on channel {value}.",
+              "5", "9"),
+    Candidate("p2_ctrl_locker_number", "copy_control",
+              "According to the passage, which locker is assigned to the guest?",
+              "The front desk note states that the guest is assigned locker {value}.",
+              "2", "8"),
+    Candidate("p2_ctrl_row_number", "copy_control",
+              "According to the passage, in which row is the seat located?",
+              "The ticket states that the seat is located in row {value}.",
+              "7", "4"),
+]
+
+
 @dataclass(frozen=True)
 class Phase1Pair:
     """One filtered, direction-anchored pair for one specific model."""
@@ -612,6 +654,25 @@ class Phase1Pair:
     answer_prior_token: str
     measured_prior_logit_diff: float  # logit(prior) - logit(context), >= 0 by construction (controls: raw measured value)
     is_control: bool
+
+
+def candidate_to_pair(cand: "Candidate", prior_value: str, context_value: str,
+                      measured_prior_logit_diff: float, is_control: bool,
+                      domain: str | None = None) -> "Phase1Pair":
+    """Assemble a Phase1Pair from a Candidate given which value the prior takes
+    and which the conflicting context states."""
+    return Phase1Pair(
+        pair_id=cand.candidate_id,
+        domain=domain if domain is not None else cand.domain,
+        template=cand.template,
+        question=cand.question,
+        context_supportive=cand.context_for(prior_value),
+        context_conflicting=cand.context_for(context_value),
+        answer_context_token=context_value,
+        answer_prior_token=prior_value,
+        measured_prior_logit_diff=measured_prior_logit_diff,
+        is_control=is_control,
+    )
 
 
 def phase1_pairs_path(model_name: str) -> Path:

@@ -1,0 +1,118 @@
+{
+  "model": "gpt2",
+  "denom_threshold": 1.0,
+  "n_generated": 8,
+  "n_kept": 8,
+  "probed": [
+    {
+      "pair_id": "p2_ctrl_access_code",
+      "denominator": 4.878498077392578,
+      "ld_conflicting": 2.7334136962890625,
+      "ld_supportive": -2.1450843811035156,
+      "kept": true
+    },
+    {
+      "pair_id": "p2_ctrl_gate_number",
+      "denominator": 1.376145362854004,
+      "ld_conflicting": 0.14361858367919922,
+      "ld_supportive": -1.2325267791748047,
+      "kept": true
+    },
+    {
+      "pair_id": "p2_ctrl_aisle_number",
+      "denominator": 2.042233467102051,
+      "ld_conflicting": 1.6189069747924805,
+      "ld_supportive": -0.4233264923095703,
+      "kept": true
+    },
+    {
+      "pair_id": "p2_ctrl_platform_number",
+      "denominator": 1.3326988220214844,
+      "ld_conflicting": 0.16347980499267578,
+      "ld_supportive": -1.1692190170288086,
+      "kept": true
+    },
+    {
+      "pair_id": "p2_ctrl_exhibit_number",
+      "denominator": 1.8271589279174805,
+      "ld_conflicting": 2.174774169921875,
+      "ld_supportive": 0.34761524200439453,
+      "kept": true
+    },
+    {
+      "pair_id": "p2_ctrl_channel_number",
+      "denominator": 3.2026853561401367,
+      "ld_conflicting": 2.775796890258789,
+      "ld_supportive": -0.42688846588134766,
+      "kept": true
+    },
+    {
+      "pair_id": "p2_ctrl_locker_number",
+      "denominator": 2.0213375091552734,
+      "ld_conflicting": -0.4664783477783203,
+      "ld_supportive": -2.4878158569335938,
+      "kept": true
+    },
+    {
+      "pair_id": "p2_ctrl_row_number",
+      "denominator": 2.5711984634399414,
+      "ld_conflicting": 1.4793529510498047,
+      "ld_supportive": -1.0918455123901367,
+      "kept": true
+    }
+  ],
+  "mover_ablation_on_kept": [
+    {
+      "pair_id": "p2_ctrl_access_code",
+      "baseline_ld": 2.7334136962890625,
+      "movers_ablated_ld": 1.5323514938354492,
+      "delta_ld": -1.2010622024536133
+    },
+    {
+      "pair_id": "p2_ctrl_gate_number",
+      "baseline_ld": 0.14361858367919922,
+      "movers_ablated_ld": 0.027626991271972656,
+      "delta_ld": -0.11599159240722656
+    },
+    {
+      "pair_id": "p2_ctrl_aisle_number",
+      "baseline_ld": 1.6189069747924805,
+      "movers_ablated_ld": 1.2584762573242188,
+      "delta_ld": -0.3604307174682617
+    },
+    {
+      "pair_id": "p2_ctrl_platform_number",
+      "baseline_ld": 0.16347980499267578,
+      "movers_ablated_ld": -0.10830307006835938,
+      "delta_ld": -0.27178287506103516
+    },
+    {
+      "pair_id": "p2_ctrl_exhibit_number",
+      "baseline_ld": 2.174774169921875,
+      "movers_ablated_ld": 1.0590906143188477,
+      "delta_ld": -1.1156835556030273
+    },
+    {
+      "pair_id": "p2_ctrl_channel_number",
+      "baseline_ld": 2.775796890258789,
+      "movers_ablated_ld": 1.709503173828125,
+      "delta_ld": -1.066293716430664
+    },
+    {
+      "pair_id": "p2_ctrl_locker_number",
+      "baseline_ld": -0.4664783477783203,
+      "movers_ablated_ld": -0.42415428161621094,
+      "delta_ld": 0.042324066162109375
+    },
+    {
+      "pair_id": "p2_ctrl_row_number",
+      "baseline_ld": 1.4793529510498047,
+      "movers_ablated_ld": -0.1304607391357422,
+      "delta_ld": -1.6098136901855469
+    }
+  ],
+  "mover_heads": [
+    "L9H9",
+    "L10H2"
+  ]
+}

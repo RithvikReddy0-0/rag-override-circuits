@@ -1,0 +1,32 @@
+{
+  "seed": 0,
+  "models": {
+    "gpt2": {
+      "control_heads": [
+        "L3H2",
+        "L3H7",
+        "L5H9",
+        "L7H1",
+        "L9H7"
+      ],
+      "n_ablation_rows": 540,
+      "n_pairs_ablated": 30,
+      "n_attribution_rows": 90,
+      "copy_controls_kept": 8
+    },
+    "pythia-160m": {
+      "control_heads": [
+        "L3H0",
+        "L3H7",
+        "L5H10",
+        "L7H2",
+        "L9H10"
+      ],
+      "n_ablation_rows": 768,
+      "n_pairs_ablated": 32,
+      "n_attribution_rows": 160,
+      "copy_controls_kept": 5
+    }
+  },
+  "total_wall_seconds": 666.1231482028961
+}

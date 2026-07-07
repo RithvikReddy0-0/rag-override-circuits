@@ -1,0 +1,32 @@
+{
+  "model": "pythia-160m",
+  "note": "no behavioral gate; small n; suggestive only",
+  "results": [
+    {
+      "pair_id": "p1_triangle_sides",
+      "available": true,
+      "denominator": 0.7601337432861328,
+      "ld_clean": -0.001071929931640625,
+      "ld_corr": -0.7612056732177734,
+      "prior_absdiff": 0.5784759521484375,
+      "mover_recovery": {
+        "L8H10": 0.15281447523266814,
+        "L10H7": 0.7168211096306668,
+        "L8H2": -0.00017564593793676245
+      }
+    },
+    {
+      "pair_id": "p1_earth_moons",
+      "available": true,
+      "denominator": 0.8888645172119141,
+      "ld_clean": -0.5089988708496094,
+      "ld_corr": -1.3978633880615234,
+      "prior_absdiff": 1.402364730834961,
+      "mover_recovery": {
+        "L8H10": 0.11698829022726444,
+        "L10H7": 0.3888816169228425,
+        "L8H2": 0.01631256960523238
+      }
+    }
+  ]
+}
