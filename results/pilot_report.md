@@ -1,6 +1,6 @@
 # Phase 0 Pilot Report: Is Context-vs-Parametric Conflict Measurable?
 
-**Question this experiment answers:** at GPT-2-small / Pythia-160M scale, does editing a single fact in retrieved legal context (supportive -> conflicting) produce a measurable, consistent shift in the model's next-token preference between the context-stated answer and the alternative? This is the VALIDATION-FIRST gate from CLAUDE.md: Phase 1 (activation patching / attribution / ablation) does not start until a human signs off on this verdict.
+**Question this experiment answers:** at GPT-2-small / Pythia-160M scale, does editing a single fact in retrieved legal context (supportive -> conflicting) produce a measurable, consistent shift in the model's next-token preference between the context-stated answer and the alternative? This is the VALIDATION-FIRST gate from RESEARCH_CHARTER.md: Phase 1 (activation patching / attribution / ablation) does not start until a human signs off on this verdict.
 
 - Models: gpt2, pythia-160m (via TransformerLens, CPU)
 - Pairs: 16 hand-written minimal pairs (data\pairs\pairs.jsonl)
@@ -91,7 +91,7 @@ By edit type:
 ### Verdict: YES — context-vs-parametric conflict is measurable at this scale, but only for numeric-fact edits. The negation pairs produced no signal and are unusable as designed.
 
 Phase 1 is justified on a **scoped-down design (numeric swaps only)**, pending human
-sign-off per CLAUDE.md's VALIDATION-FIRST rule. Nothing below has been built yet.
+sign-off per RESEARCH_CHARTER.md's VALIDATION-FIRST rule. Nothing below has been built yet.
 
 #### What the data shows
 
@@ -150,7 +150,7 @@ sign-off per CLAUDE.md's VALIDATION-FIRST rule. Nothing below has been built yet
 
 #### Recommended Phase 1 scope (pending human sign-off)
 
-- **Proceed with `numeric_swap` pairs only.** Of CLAUDE.md's mitigation menu
+- **Proceed with `numeric_swap` pairs only.** Of RESEARCH_CHARTER.md's mitigation menu
   (facts-the-model-knows / in-context priming / fine-tune), the data selects
   **facts-the-model-knows**: anchor each pair's parametric direction on the measured
   neutral logit-diff *per model*, and prefer facts with large |neutral| (the

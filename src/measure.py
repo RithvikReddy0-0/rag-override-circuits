@@ -1,7 +1,7 @@
 """Logit-difference readout for a single (model, pair, condition).
 
 The behavioral metric throughout this project is a logit difference, not
-accuracy (per CLAUDE.md): for a pair's two single-token answer candidates
+accuracy (per RESEARCH_CHARTER.md): for a pair's two single-token answer candidates
 (`parametric_answer`, `edited_answer`), we read the model's next-token
 logits after "Answer:" and take their difference. Forward passes over a
 frozen, pretrained model in eval mode are deterministic (no dropout), so

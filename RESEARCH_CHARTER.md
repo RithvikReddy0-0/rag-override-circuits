@@ -1,4 +1,4 @@
-# CLAUDE.md — Project Context
+# Research Charter — Project Context
 
 ## What this is
 A mechanistic-interpretability research project. We are **not** building a legal chatbot or a RAG product. We are studying, causally, **where inside a small language model the decision to trust retrieved context vs. fall back on parametric memory lives** — and whether "defer to good evidence" and "resist corrupted evidence" are the same circuit or different ones. The deliverable is a rigorous paper (target: BlackboxNLP / arXiv), not a demo.
@@ -21,7 +21,7 @@ Do **not** build the full experimental pipeline before the pilot passes. The ent
 ## Repo structure
 ```
 .
-├── CLAUDE.md                 # this file
+├── RESEARCH_CHARTER.md       # this file
 ├── README.md                 # research question + reproduction (stub until results exist)
 ├── pyproject.toml            # deps: transformer-lens, torch (cpu), numpy, pandas, matplotlib
 ├── src/

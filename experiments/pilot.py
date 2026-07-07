@@ -1,4 +1,4 @@
-"""Phase 0 pilot (VALIDATION-FIRST gate, see CLAUDE.md).
+"""Phase 0 pilot (VALIDATION-FIRST gate, see RESEARCH_CHARTER.md).
 
 Answers exactly one question with data: at GPT-2-small / Pythia-160M scale,
 is context-vs-parametric conflict measurable at all? I.e. does editing a
@@ -252,7 +252,7 @@ def write_report(pivot: pd.DataFrame, summary: dict, seed_info: dict, out_path: 
         "editing a single fact in retrieved legal context (supportive -> conflicting) "
         "produce a measurable, consistent shift in the model's next-token preference "
         "between the context-stated answer and the alternative? This is the VALIDATION-FIRST "
-        "gate from CLAUDE.md: Phase 1 (activation patching / attribution / ablation) does not "
+        "gate from RESEARCH_CHARTER.md: Phase 1 (activation patching / attribution / ablation) does not "
         "start until a human signs off on this verdict."
     )
     lines.append("")
@@ -338,7 +338,7 @@ def write_report(pivot: pd.DataFrame, summary: dict, seed_info: dict, out_path: 
             "_[Not yet written. The assessment lives in results/pilot_assessment.md and "
             "is inlined here on re-run; it is written after looking at the numbers rather "
             "than auto-generated, so the verdict is not self-graded by the same script "
-            "that produced them. Per CLAUDE.md's VALIDATION-FIRST rule, Phase 1 does not "
+            "that produced them. Per RESEARCH_CHARTER.md's VALIDATION-FIRST rule, Phase 1 does not "
             "start until a human signs off on this verdict.]_"
         )
     lines.append("")

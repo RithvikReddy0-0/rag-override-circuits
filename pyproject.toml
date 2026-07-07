@@ -1,21 +1,32 @@
 [project]
 name = "rag-override-circuits"
-version = "0.1.0"
+version = "1.0.0"
 description = "Mechanistic-interpretability study of context-override circuits in small LMs (CPU-only)"
+readme = "README.md"
 requires-python = ">=3.11,<3.12"
+license = { text = "MIT" }
+authors = [{ name = "Rithvik Reddy" }]
+
+# Pinned to the exact known-good versions the results were produced with.
+# The transformer-lens / transformers pair is load-bearing: transformer-lens
+# 1.x breaks against transformers 5.x (module 'transformers' has no attribute
+# 'TRANSFORMERS_CACHE'). The combination below is verified working on CPU with
+# Python 3.11. See requirements-lock.txt for the full frozen environment.
 dependencies = [
-    "torch>=2.2,<3.0",
-    "transformer-lens>=3.0,<4.0",
-    "numpy>=1.26,<2.0",
-    "pandas>=2.2,<3.0",
-    "matplotlib>=3.8,<4.0",
+    "torch==2.12.1",              # CPU build: install from the PyTorch CPU index (see README)
+    "transformer-lens==3.5.0",    # known-good with transformers==5.12.1
+    "transformers==5.12.1",
+    "numpy==1.26.4",
+    "pandas==2.3.3",
+    "matplotlib==3.11.0",
 ]
 
+[project.urls]
+Homepage = "https://github.com/RithvikReddy0-0/rag-override-circuits"
+
 [tool.setuptools]
-package-dir = {"" = "src"}
-# attribution.py / ablate.py are Phase 2 modules and should be appended here
-# when they exist (not before — VALIDATION-FIRST).
-py-modules = ["pairs", "measure", "priors", "patch"]
+package-dir = { "" = "src" }
+py-modules = ["pairs", "measure", "priors", "patch", "ablate", "attribution"]
 
 [build-system]
 requires = ["setuptools>=68"]

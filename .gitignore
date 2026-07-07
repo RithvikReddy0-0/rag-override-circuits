@@ -1,6 +1,20 @@
+# Python
 .venv/
 __pycache__/
 *.pyc
 .pytest_cache/
-results/*.png
 *.egg-info/
+
+# LaTeX build products
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.pdf
+paper/*.bbl
+paper/*.blg
+paper/*.synctex.gz
+
+# Raw per-pair / per-component effect tables (multi-MB, regenerable via `make`).
+# Figures are committed (results/*.png); summary JSONs, reports, and the
+# hand-written assessments are committed. Only the bulky raw CSVs are ignored.
+results/*.csv.gz

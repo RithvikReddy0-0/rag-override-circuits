@@ -1,164 +1,172 @@
 # rag-override-circuits
 
-Mechanistic-interpretability study of **where, inside a small language model, the
-decision to trust retrieved context vs. fall back on parametric memory lives** —
-and whether "defer to good evidence" and "resist corrupted evidence" are the same
-circuit or different ones. Not a RAG product, not a chatbot, not a benchmark:
-the deliverable is a paper (target: BlackboxNLP / arXiv).
+**Context faithfulness in small language models is a sparse, prior-invariant
+attention circuit; parametric resistance is not head-localized at 124M–160M,
+and has no functional counterpart to the billion-scale "memory head" motif.**
 
-**The one claim under test:** in small transformers, context-override behavior in
-a retrieval setting is driven by localizable components, and we can causally
-intervene on them to predictably change faithfulness to retrieved evidence.
+A mechanistic-interpretability study of how GPT-2-small (124M) and Pythia-160M
+decide, token by token, whether to trust retrieved context or fall back on
+parametric memory when the two conflict. It is a **controlled replication and
+scale-boundary refinement** of Jin et al. 2024 ("Cutting Off the Head Ends the
+Conflict", PH3; [arXiv:2402.18154](https://arxiv.org/abs/2402.18154)), which
+localizes opposing *context* and *memory* heads at 1.3B–13B. We test whether
+that two-population picture holds two orders of magnitude smaller.
 
-## Status: Phase 4 (resistance-pathway decomposition) complete — awaiting sign-off; claim wording finalized pending approval
+The write-up is in [`paper/main.tex`](paper/main.tex).
 
-**Phase 4 verdict**: the Phase 3 "MLP/residual-side" clause is **refuted** —
-MLPs write both answers massively but net-lean toward *context*, and ablating
-the top prior-writing MLP layers *hurts* context-following (−0.46; control ≈ 0).
-Embeddings are negligible. The prior-tracking signal instead lives in
-**attention**: non-mover attention net lean scales with prior strength
-(Pythia ρ = +0.46, perm p = 0.008; GPT-2 +0.32, p = 0.089), flips to the prior
-side exactly on context-loses pairs (attn −0.66→+0.16 while MLPs stay
-context-leaning), and Pythia's movers attend the number *less* on strong
-priors (ρ = −0.35, p = 0.051) — resistance partly as attenuation. No memory
-heads, but a memory *tide* across many sub-threshold attention heads. This
-analysis is post-hoc (the task's own predictions failed first) and flagged as
-such. Final proposed claim wording: [results/phase4_report.md](results/phase4_report.md).
+## Findings
 
+Stated at the confidence the data supports — including where it splits between
+models and where a hypothesis was refuted.
 
+**1. A sparse context "mover" circuit (both models, four methods, metric-robust).**
+Context faithfulness is carried by 2–3 late attention heads — GPT-2 `L9H9`,
+`L10H2`; Pythia `L8H10`, `L10H7`, `L8H2` — that attend to the retrieved number
+and copy it into the answer. Mean-ablating them collapses context-following
+(GPT-2 0.97 → 0.27; Pythia 0.75 → 0.09; random-head controls at the noise
+floor). Direct logit attribution and OV-circuit copy scores confirm the
+mechanism. The circuit is invariant to how strongly the prior is held. It is
+robust to metric choice: under **PH3's own importance metric** these are the
+top-ranked *context* heads in both models.
 
-**Phase 3 verdict** (vs Jin et al. 2024's PH3 memory/context heads): **partially**.
-The mover half is now triply confirmed (prior-invariance: Spearman +0.07/+0.02
-vs measured prior, a third independent test). The hoped-for "distinct
-prior-tracking resistance population" **fails on every prediction**: the
-negative heads suppress *both* answers (never write the prior), their effect
-*anti*-scales with prior strength (Pythia ρ = −0.38, p = 0.035), it vanishes
-when the movers are ablated first (reactive, not independent), and on pairs
-where context loses, the resistance comes from the diffuse "rest" of the
-network (−0.3..−1.6) — not from any head. A global 144-head scan finds the
-memory-head region empty in both models (max prior-lean +0.10/+0.14 vs mover
-context-lean −0.80/−0.64). Reworded central claim: context-faithfulness is
-head-localized; parametric resistance is NOT head-localized at 124M–160M — the
-PH3 memory-head motif has no counterpart at this scale. Details:
-[results/phase3_report.md](results/phase3_report.md).
+![All-heads scan: the memory-head region is empty](results/phase3_scan_pythia-160m.png)
 
+**2. No functional memory heads at this scale (a scale boundary + a methods caution).**
+No head writes the parametric answer or scales its effect with prior strength.
+A scan over all 144 heads leaves the memory-head region empty (above; strongest
+prior-leaning head +0.14 vs. mover context-lean −0.64). PH3's importance metric
+*does* return a memory-side top-5% here — but those heads are, mechanistically,
+reactive context-**dampeners** that suppress *both* answers, not memory heads.
+Importance scores alone can mislabel suppression heads as memory heads;
+functional tests are needed to tell them apart.
 
+![Mover-head ablation collapses context-following](results/phase2_ablation_pythia-160m.png)
 
-**Phase 0 verdict** (signed off): context-vs-parametric conflict is measurable
-at this scale for numeric-fact edits (8/8 pairs, both models, ≈ −3.8-logit
-shifts; negation showed no signal and was dropped). Details:
-[results/pilot_report.md](results/pilot_report.md).
+**3. Resistance is diffuse — pre-registered, and it splits by model.**
+Parametric resistance appears not in a head but as a lean spread across the
+non-mover attention layer that tracks prior strength. This was found post-hoc
+in one phase, so it was **pre-registered** (frozen to commit `539355a` before
+any held-out data existed) and tested on fresh, fact-disjoint pairs:
 
-**Phase 2 verdict** (validation): Phase 1's localization holds up under the
-harder test. Mean-ablating the mover heads collapses context-following
-(GPT-2 0.97→0.27, Pythia 0.75→0.09; random-head controls at the noise floor);
-the heads mechanically attend to the retrieved number and write/copy it (DLA
-all positive, top OV percentiles 93–99.9); a separate small set of heads writes
-*against* context (ablating them raises context-following); and the shared-
-circuit result survives — denominator-normalized ablation removes a flat
-~40–47% of the context effect across prior-strength terciles (weak-vs-strong
-Cohen's d ≈ 0, perm p ≈ 0.86–0.89). Both Phase 1 loose ends closed: Pythia
-copy-control is now available (5/8 new copy pairs pass behaviorally — it copies
-numbers, just not "Section N"), and on the extreme-prior pairs the same mover
-heads carry the residual signal. Honest qualifier: the heads dominate the
-*head-level* effect but are ~40% of the *total* context pathway, and the
-negative heads are mechanistically plural. Full detail + hand-written
-assessment: [results/phase2_report.md](results/phase2_report.md).
+| model | pre-registered test (ρ ≥ 0.30, one-sided p < .05, n ≥ 40) | verdict |
+| --- | --- | --- |
+| Pythia-160M | ρ = **0.368**, p = **0.0045**, n = 48 | **CONFIRMED** |
+| GPT-2-small | ρ = 0.063, p = 0.336, n = 48 | **REFUTED** |
 
-**Phase 1 verdict**: context-override is **sharply localized** — and the
-circuit is **shared** between easy-override and prior-resists pairs.
+We report the split as-is. GPT-2's resistance regime is thin (7/48 context-loses
+pairs vs. Pythia's 11), and a hypothesis that only registers where the regime is
+thick is, for GPT-2, unsupported. MLPs, in both models, net-*amplify* the
+winning answer rather than carrying the prior.
 
-- ~30 numeric minimal pairs per model, conflict direction anchored on the
-  *measured* per-model prior (a-priori labels were wrong ~half the time in
-  the pilot). Full attrition logged.
-- Activation patching (both canonical directions, denoising + noising) shows
-  the context number's information stays at its own token position until
-  ~¾ network depth, then hops directly to the answer position via **2–3
-  attention heads**: GPT-2 **L9H9 (0.47) + L10H2 (0.37)** ≈ 84% of the
-  effect; Pythia **L8H10 (0.51) + L10H7 (0.25) + L8H2 (0.15)** ≈ 92%.
-  Bootstrap CIs tight; bottom-half heads at 0.0002 (negative floor).
-- **Central question**: the same heads dominate whether the prior is weak or
-  strong (GPT-2 overlap@10 = 90–100%, Spearman 0.75–0.79) — no dissociable
-  "resistance" circuit at head granularity; the prior's resistance lives in
-  the baseline balance, not in different components.
-- Both models place the mover heads at relative depth 0.67–0.83 — a
-  convergent functional motif across architectures.
-- Full numbers, figures, and the hand-written critical assessment (including
-  a selection-effect caveat, uncharacterized negative heads, and a disclosed
-  budget-mechanism bug): [results/phase1_report.md](results/phase1_report.md).
+**4. Negative result.** Negation-based context edits (e.g. "has the right" vs.
+"does not have the right") produce no usable signal at this scale, unlike
+numeric edits — small models are largely insensitive to the negation.
 
-## Known limitations (also stated in the reports)
+This is a controlled replication + refinement, not a first mechanistic account
+of knowledge conflict.
 
-- ~30 pairs/model, one prompt template, single-token answers: claims are about
-  this task format at this scale.
-- Patched/ablated activations are off-manifold inputs (standard caveat); Phase 2
-  ablation + attribution now back the "mover head" reading with necessity and
-  mechanism evidence, but the heads are ~40% of the *total* context pathway,
-  not all of it.
-- The ≥1-logit behavioral-effect gate excludes the most prior-dominated pairs;
-  the Phase 2 selection probe shows the same heads still carry the residual
-  signal there (n = 2, suggestive).
-- Two-candidate logit diff ignores the rest of the vocabulary.
-- Ablation is at the final answer position only; tercile symmetry test is
-  low-powered (n ≈ 10/tercile).
+## Method in brief
 
-## Reproduction (CPU-only, deterministic)
+- **Minimal pairs** — one question + a retrieved fact, in two versions differing
+  by a single number (supportive vs. conflicting), IOI-style controlled edits.
+- **Measured-prior anchoring** — the "parametric answer" is *measured* per model
+  from the no-context prior, never assumed (a pilot showed *a priori* guesses
+  were wrong ~half the time).
+- **Behavioral metric** — logit difference (context answer − prior answer), not
+  accuracy.
+- **Causal + attributive tools** — bidirectional activation patching
+  (denoising + noising) at residual / attn / MLP / head granularity;
+  mean-ablation (mean, not zero — on-distribution); direct logit attribution
+  with exact LayerNorm handling (reconstructs the true logit diff to <1e-5);
+  OV-circuit copy scores; a reimplementation of PH3's head-importance metric.
+- **Pre-registration** — the one confirmatory correlation was frozen to a git
+  hash before the held-out data existed.
+
+## Pre-registration
+
+The attention-tide hypothesis (Finding 3) was frozen in
+[`results/phase5_preregistration.md`](results/phase5_preregistration.md) —
+exact statistic, thresholds, validity floors, and decision rule — and committed
+(hash `539355a`, recorded in the file) **before** any Phase 5 pair was
+generated or inspected. The fresh pair set is fact-disjoint from all earlier
+phases. The frozen verdicts are reported unchanged, including the GPT-2
+refutation.
+
+## Reproduce
+
+CPU-only, deterministic (seed 0 everywhere; frozen models in eval mode →
+forward passes are deterministic, so results reproduce exactly).
 
 ```bash
-py -3.11 -m venv .venv                    # Python 3.11
-.venv/Scripts/pip install -e .            # torch (CPU), transformer-lens, numpy, pandas, matplotlib
-.venv/Scripts/python -m pairs             # validates tokenization, writes data/pairs/pairs.jsonl
-.venv/Scripts/python experiments/pilot.py # ~2 min on CPU; writes results/pilot_*.{json,md,png}
+# 1. Environment (Python 3.11). Install the CPU torch build first:
+python -m venv .venv
+.venv/Scripts/pip install torch==2.12.1 --index-url https://download.pytorch.org/whl/cpu   # Windows
+# .venv/bin/pip install torch==2.12.1 --index-url https://download.pytorch.org/whl/cpu      # Unix
+.venv/Scripts/pip install -e .        # or: pip install -r requirements-lock.txt
 
-# Phase 1 (order matters):
-.venv/Scripts/python experiments/build_phase1_dataset.py  # priors + filtered pair sets (~2 min)
-.venv/Scripts/python experiments/phase1.py                # patching grid (~3.5 h CPU; prints budget first)
-.venv/Scripts/python experiments/phase1_report.py         # stats + figures + report from cache (~1 min)
+# 2. Smoke test (~2 min): confirms both models load and the pilot runs.
+python run_all.py smoke        # or: make smoke
 
-# Phase 2 (uses Phase 1 pair sets + cached head effects):
-.venv/Scripts/python experiments/phase2.py                # ablation + attribution + loose ends (~11 min CPU)
-.venv/Scripts/python experiments/phase2_report.py         # stats + figures + report from cache (~1 min)
-
-# Phase 3 (memory-head reconciliation vs PH3):
-.venv/Scripts/python experiments/phase3.py                # directional DLA + global scan + joint ablation (~8 min CPU)
-.venv/Scripts/python experiments/phase3_report.py         # stats + figures + report from cache (~2 min)
-
-# Phase 4 (resistance-pathway decomposition):
-.venv/Scripts/python experiments/phase4.py                # component DLA + MLP-layer ablation (~11 min CPU)
-.venv/Scripts/python experiments/phase4_report.py         # stats + figures + report from cache (~2 min)
+# 3. Any phase, or everything:
+python run_all.py phase0       # or: make phase0   (pilot gate)
+python run_all.py all          # or: make all
 ```
 
-For a CPU-only torch wheel, install torch first from the PyTorch CPU index:
-`pip install "torch>=2.2,<3.0" --index-url https://download.pytorch.org/whl/cpu`.
+The `transformer-lens==3.5.0` / `transformers==5.12.1` pairing is load-bearing
+(transformer-lens 1.x breaks against transformers 5.x); exact versions are
+pinned in [`pyproject.toml`](pyproject.toml) and
+[`requirements-lock.txt`](requirements-lock.txt).
 
-All seeds fixed (seed 0) and logged; forward passes over frozen models in eval
-mode are deterministic, so re-runs reproduce the reported numbers exactly.
+Indicative CPU runtimes: smoke/phase0 ~2 min · phase1 ~3.5 h (the full patching
+grid dominates) · phase2 ~12 min · phase3 ~9 min · phase4 ~12 min · phase5
+~20 min. Each phase writes reports, summaries, and figures to `results/`. Raw
+per-pair effect tables (`results/*.csv.gz`) are regenerable and git-ignored;
+figures, summary JSONs, reports, and the hand-written assessments are committed.
 
-## Layout
+## Repository structure
 
 ```
-src/pairs.py                        minimal-pair construction + Phase 1/2 candidates
-src/measure.py                      logit-diff readout
-src/priors.py                       measured bare-prior probe (Phase 1 anchoring)
-src/patch.py                        activation patching machinery (batched, both directions)
-src/ablate.py                       mean-ablation validation machinery (Phase 2)
-src/attribution.py                  attention patterns, DLA, OV copy score (Phase 2)
-experiments/pilot.py                Phase 0 gate
-experiments/build_phase1_dataset.py Phase 1 dataset build (tokenization/prior filters)
-experiments/phase1.py               Phase 1 patching grid (compute only)
-experiments/phase1_report.py        Phase 1 stats/figures/report (from cache)
-experiments/phase2.py               Phase 2 ablation + attribution + loose ends (compute)
-experiments/phase2_report.py        Phase 2 stats/figures/report (from cache)
-experiments/phase3.py               Phase 3 directional DLA + global scan + joint ablation
-experiments/phase3_report.py        Phase 3 stats/figures/report (from cache)
-experiments/phase4.py               Phase 4 component decomposition + MLP ablation
-experiments/phase4_report.py        Phase 4 stats/figures/report (from cache)
-data/pairs/, data/priors/           pair sets (JSONL) + logged prior probes
-results/                            reports, raw effects (csv.gz), summaries, figures
-IDEAS.md                            parked ideas (explicitly not scheduled work)
+paper/
+  main.tex                     the write-up (self-contained; pdflatex-ready)
+  figures/                     figure snapshots used by the PDF
+src/
+  pairs.py                     minimal-pair construction + Phase 1/5 candidates
+  measure.py                   logit-difference readout
+  priors.py                    measured bare-prior probe (direction anchoring)
+  patch.py                     activation patching (batched, both directions)
+  ablate.py                    mean-ablation machinery
+  attribution.py               attention patterns, DLA, OV copy score
+experiments/
+  pilot.py                     Phase 0 gate
+  build_phase1_dataset.py      Phase 1 dataset (tokenization + prior filters)
+  phase1.py / phase1_report.py patching grid + analysis
+  phase2..phase4 (+ _report)   ablation, memory-head reconciliation, decomposition
+  build_phase5_dataset.py      fresh fact-disjoint pairs
+  phase5.py / phase5_report.py PH3-metric scan + pre-registered tide test
+data/pairs/, data/priors/      minimal-pair sets (JSONL) + logged prior probes
+results/                       reports (*.md), summaries (*.json), figures (*.png),
+                               and results/phase5_preregistration.md
+run_all.py, Makefile           one-command reproduction per phase / all / smoke
 ```
 
-Phases 0–4 are complete. Paper writing (and the two logged pre-paper items:
-confirmatory test of the attention-tide scaling on fresh pairs; ranking the
-non-mover heads' contribution to the tide) has not started — by design, until
-the Phase 4 verdict is signed off.
+The project was executed in reviewed phases, each ending with a machine-readable
+report and a hand-written critical assessment (`results/*_assessment.md`) before
+the next phase began; those assessments record the reasoning, the reversals, and
+the limitations behind each claim above.
+
+## Citation
+
+```bibtex
+@misc{reddy2026ragoverride,
+  author       = {Rithvik Reddy},
+  title        = {Context Faithfulness Is a Sparse Attention Circuit;
+                  Parametric Resistance Is Not: A Controlled Replication and
+                  Scale-Boundary Refinement of PH3 in 124M--160M Language Models},
+  year         = {2026},
+  howpublished = {\url{https://github.com/RithvikReddy0-0/rag-override-circuits}}
+}
+```
+
+## License
+
+[MIT](LICENSE).

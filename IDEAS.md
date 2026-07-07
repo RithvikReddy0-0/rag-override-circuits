@@ -1,4 +1,4 @@
-# IDEAS.md — logged and parked, per CLAUDE.md ("log the idea and move on")
+# IDEAS.md — logged and parked, per RESEARCH_CHARTER.md ("log the idea and move on")
 
 Nothing in this file is scheduled work. Each entry exists so a thought is not
 lost, not so it gets built.
@@ -26,4 +26,4 @@ token-level preferences rather than comprehension. If negation is ever revisited
   blocks) — worth one small experiment early in Phase 1 to confirm the numeric
   signal is not template-specific, but not a benchmark.
 - SAEs, larger models, additional phenomena: explicitly out of scope per
-  CLAUDE.md. Not elaborated here on purpose.
+  RESEARCH_CHARTER.md. Not elaborated here on purpose.

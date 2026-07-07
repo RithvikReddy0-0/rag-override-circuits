@@ -8,7 +8,7 @@ Passes, in order (per model):
   B. Head-level (z), both directions: restricted to layers flagged by pass A
      if the projected total wall-clock exceeds the ~2h budget, else all
      layers. The decision and flagged set are printed and logged — never
-     silent (CLAUDE.md honesty rule / task 2e).
+     silent (RESEARCH_CHARTER.md honesty rule / task 2e).
   C. Residual stream at FULL position resolution (every position from the
      critical number to the end, per layer) on a 6-pair subset per model
      (2 per prior-strength tercile), both directions.

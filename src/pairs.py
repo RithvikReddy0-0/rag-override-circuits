@@ -12,7 +12,7 @@ real-world reason a model would have a parametric belief about an arbitrary
 contract's internal section numbering, so those pairs are copy-fidelity
 controls, not genuine parametric-vs-context conflict tests. Everything else
 is chosen to have a plausible pretraining-era prior (common statutory
-defaults, legal maxims), so a real conflict can exist per CLAUDE.md.
+defaults, legal maxims), so a real conflict can exist per RESEARCH_CHARTER.md.
 
 Every `parametric_answer` / `edited_answer` must be exactly one token in both
 GPT-2-small's and Pythia-160M's vocabularies (checked by `validate_pairs`),

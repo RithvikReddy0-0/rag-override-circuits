@@ -1,7 +1,7 @@
 ### Verdict: YES — context-vs-parametric conflict is measurable at this scale, but only for numeric-fact edits. The negation pairs produced no signal and are unusable as designed.
 
 Phase 1 is justified on a **scoped-down design (numeric swaps only)**, pending human
-sign-off per CLAUDE.md's VALIDATION-FIRST rule. Nothing below has been built yet.
+sign-off per RESEARCH_CHARTER.md's VALIDATION-FIRST rule. Nothing below has been built yet.
 
 #### What the data shows
 
@@ -60,7 +60,7 @@ sign-off per CLAUDE.md's VALIDATION-FIRST rule. Nothing below has been built yet
 
 #### Recommended Phase 1 scope (pending human sign-off)
 
-- **Proceed with `numeric_swap` pairs only.** Of CLAUDE.md's mitigation menu
+- **Proceed with `numeric_swap` pairs only.** Of RESEARCH_CHARTER.md's mitigation menu
   (facts-the-model-knows / in-context priming / fine-tune), the data selects
   **facts-the-model-knows**: anchor each pair's parametric direction on the measured
   neutral logit-diff *per model*, and prefer facts with large |neutral| (the
