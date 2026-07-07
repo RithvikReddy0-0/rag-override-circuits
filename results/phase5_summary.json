@@ -1,0 +1,233 @@
+{
+  "seed": 0,
+  "preregistration_commit_recorded": "539355a564c11694d9103ac979e687e1e9fd9a00",
+  "preregistration_commit_from_git": "539355a564c11694d9103ac979e687e1e9fd9a00",
+  "models": {
+    "gpt2": {
+      "ph3": {
+        "n_heads": 144,
+        "n_top5pct": 7,
+        "memory_candidates": [
+          {
+            "unit": "L10H7",
+            "ph3_importance": -0.011748833535239051
+          },
+          {
+            "unit": "L0H10",
+            "ph3_importance": -0.008294654614292034
+          },
+          {
+            "unit": "L8H10",
+            "ph3_importance": -0.007104616488019577
+          },
+          {
+            "unit": "L7H6",
+            "ph3_importance": -0.004448498312073398
+          },
+          {
+            "unit": "L4H8",
+            "ph3_importance": -0.003216453633891987
+          },
+          {
+            "unit": "L9H5",
+            "ph3_importance": -0.003067796739439128
+          },
+          {
+            "unit": "L8H2",
+            "ph3_importance": -0.0023396959140275465
+          }
+        ],
+        "context_heads": [
+          {
+            "unit": "L5H10",
+            "ph3_importance": 0.0036470616624379648
+          },
+          {
+            "unit": "L8H11",
+            "ph3_importance": 0.0037999355467035903
+          },
+          {
+            "unit": "L0H9",
+            "ph3_importance": 0.00431178954895581
+          },
+          {
+            "unit": "L5H5",
+            "ph3_importance": 0.00486099733971054
+          },
+          {
+            "unit": "L6H2",
+            "ph3_importance": 0.0055461901162440095
+          },
+          {
+            "unit": "L9H9",
+            "ph3_importance": 0.01762009675924971
+          },
+          {
+            "unit": "L10H2",
+            "ph3_importance": 0.018295542115811213
+          }
+        ],
+        "max_context_importance": 0.018295542115811213,
+        "min_memory_importance": -0.011748833535239051,
+        "asymmetry_ratio": 1.5572220051408667,
+        "movers_in_context_top": [
+          "L9H9",
+          "L10H2"
+        ],
+        "negatives_in_memory_top": [
+          "L10H7"
+        ]
+      },
+      "tide": {
+        "model": "gpt2",
+        "n_gated": 48,
+        "n_excluded": 0,
+        "excluded": [],
+        "movers": [
+          "L9H9",
+          "L10H2"
+        ],
+        "primary": {
+          "valid": true,
+          "n": 48,
+          "spearman": 0.06296135475466783,
+          "one_sided_perm_p": 0.335833208339583,
+          "verdict": "REFUTED"
+        },
+        "n_context_loses": 7,
+        "secondary": {
+          "valid": false,
+          "n_loses": 7,
+          "verdict": "INVALID (n_loses < 20 floor)"
+        }
+      }
+    },
+    "pythia-160m": {
+      "ph3": {
+        "n_heads": 144,
+        "n_top5pct": 7,
+        "memory_candidates": [
+          {
+            "unit": "L9H1",
+            "ph3_importance": -0.006409717614587821
+          },
+          {
+            "unit": "L9H5",
+            "ph3_importance": -0.006355615412758168
+          },
+          {
+            "unit": "L3H10",
+            "ph3_importance": -0.005757087506935884
+          },
+          {
+            "unit": "L2H8",
+            "ph3_importance": -0.0035577105445553986
+          },
+          {
+            "unit": "L0H11",
+            "ph3_importance": -0.00324767695565241
+          },
+          {
+            "unit": "L6H7",
+            "ph3_importance": -0.002888379880459936
+          },
+          {
+            "unit": "L3H6",
+            "ph3_importance": -0.002360799306188694
+          }
+        ],
+        "context_heads": [
+          {
+            "unit": "L1H8",
+            "ph3_importance": 0.0013980114927107624
+          },
+          {
+            "unit": "L0H2",
+            "ph3_importance": 0.0020692266516561786
+          },
+          {
+            "unit": "L4H11",
+            "ph3_importance": 0.0021090768241264907
+          },
+          {
+            "unit": "L10H3",
+            "ph3_importance": 0.002456202593748424
+          },
+          {
+            "unit": "L8H2",
+            "ph3_importance": 0.0039682338974671195
+          },
+          {
+            "unit": "L10H7",
+            "ph3_importance": 0.007664329670660612
+          },
+          {
+            "unit": "L8H10",
+            "ph3_importance": 0.011589941103011312
+          }
+        ],
+        "max_context_importance": 0.011589941103011312,
+        "min_memory_importance": -0.006409717614587821,
+        "asymmetry_ratio": 1.8081827936746957,
+        "movers_in_context_top": [
+          "L8H10",
+          "L10H7",
+          "L8H2"
+        ],
+        "negatives_in_memory_top": [
+          "L9H1",
+          "L9H5"
+        ]
+      },
+      "tide": {
+        "model": "pythia-160m",
+        "n_gated": 48,
+        "n_excluded": 6,
+        "excluded": [
+          {
+            "pair_id": "p5_leap_february",
+            "reason": "denominator 0.407 < 1.0"
+          },
+          {
+            "pair_id": "p5_bowling_pins",
+            "reason": "denominator 0.654 < 1.0"
+          },
+          {
+            "pair_id": "p5_tax_day",
+            "reason": "denominator 0.050 < 1.0"
+          },
+          {
+            "pair_id": "p5_ww2_end",
+            "reason": "denominator 0.564 < 1.0"
+          },
+          {
+            "pair_id": "p5_december_days",
+            "reason": "denominator 0.196 < 1.0"
+          },
+          {
+            "pair_id": "p5_months_31",
+            "reason": "denominator 0.533 < 1.0"
+          }
+        ],
+        "movers": [
+          "L8H10",
+          "L10H7",
+          "L8H2"
+        ],
+        "primary": {
+          "valid": true,
+          "n": 48,
+          "spearman": 0.36810681719496313,
+          "one_sided_perm_p": 0.004549772511374431,
+          "verdict": "CONFIRMED"
+        },
+        "n_context_loses": 11,
+        "secondary": {
+          "valid": false,
+          "n_loses": 11,
+          "verdict": "INVALID (n_loses < 20 floor)"
+        }
+      }
+    }
+  }
+}

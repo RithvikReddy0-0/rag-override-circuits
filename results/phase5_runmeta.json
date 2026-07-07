@@ -1,0 +1,17 @@
+{
+  "seed": 0,
+  "preregistration_commit": "539355a564c11694d9103ac979e687e1e9fd9a00",
+  "models": {
+    "gpt2": {
+      "n_ph3_rows": 4320,
+      "n_tide_pairs": 48,
+      "n_context_loses": 7
+    },
+    "pythia-160m": {
+      "n_ph3_rows": 4608,
+      "n_tide_pairs": 48,
+      "n_context_loses": 11
+    }
+  },
+  "total_wall_seconds": 1025.7131624221802
+}

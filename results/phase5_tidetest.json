@@ -1,0 +1,78 @@
+{
+  "preregistration_commit": "539355a564c11694d9103ac979e687e1e9fd9a00",
+  "seed": 0,
+  "models": {
+    "gpt2": {
+      "model": "gpt2",
+      "n_gated": 48,
+      "n_excluded": 0,
+      "excluded": [],
+      "movers": [
+        "L9H9",
+        "L10H2"
+      ],
+      "primary": {
+        "valid": true,
+        "n": 48,
+        "spearman": 0.06296135475466783,
+        "one_sided_perm_p": 0.335833208339583,
+        "verdict": "REFUTED"
+      },
+      "n_context_loses": 7,
+      "secondary": {
+        "valid": false,
+        "n_loses": 7,
+        "verdict": "INVALID (n_loses < 20 floor)"
+      }
+    },
+    "pythia-160m": {
+      "model": "pythia-160m",
+      "n_gated": 48,
+      "n_excluded": 6,
+      "excluded": [
+        {
+          "pair_id": "p5_leap_february",
+          "reason": "denominator 0.407 < 1.0"
+        },
+        {
+          "pair_id": "p5_bowling_pins",
+          "reason": "denominator 0.654 < 1.0"
+        },
+        {
+          "pair_id": "p5_tax_day",
+          "reason": "denominator 0.050 < 1.0"
+        },
+        {
+          "pair_id": "p5_ww2_end",
+          "reason": "denominator 0.564 < 1.0"
+        },
+        {
+          "pair_id": "p5_december_days",
+          "reason": "denominator 0.196 < 1.0"
+        },
+        {
+          "pair_id": "p5_months_31",
+          "reason": "denominator 0.533 < 1.0"
+        }
+      ],
+      "movers": [
+        "L8H10",
+        "L10H7",
+        "L8H2"
+      ],
+      "primary": {
+        "valid": true,
+        "n": 48,
+        "spearman": 0.36810681719496313,
+        "one_sided_perm_p": 0.004549772511374431,
+        "verdict": "CONFIRMED"
+      },
+      "n_context_loses": 11,
+      "secondary": {
+        "valid": false,
+        "n_loses": 11,
+        "verdict": "INVALID (n_loses < 20 floor)"
+      }
+    }
+  }
+}
